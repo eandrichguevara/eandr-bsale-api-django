@@ -18,7 +18,7 @@ class CategoryView(View):
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Categories not found'}
-            status=400
+            status=404
             
         response = jsonConfig(data, status)
         return response
@@ -38,7 +38,47 @@ class ProductView(View):
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
-            status=400
+            status=404
+
+        response = jsonConfig(data, status)
+        return response
+
+class ProductByCategoryView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, category):
+
+        products = list(Product.objects.filter(category_id=category).values())
+
+        if len(products) > 0:
+            data = {'SUCCESS': True, 'PRODUCTS': products}
+            status=200
+        else:
+            data = {'SUCCESS': False, 'ERROR': 'Products not found'}
+            status=404
+
+        response = jsonConfig(data, status)
+        return response
+
+class ProductBySearchView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, search):
+
+        products = list(Product.objects.filter(name__icontains = search).values())
+
+        if len(products) > 0:
+            data = {'SUCCESS': True, 'PRODUCTS': products}
+            status=200
+        else:
+            data = {'SUCCESS': False, 'ERROR': 'Products not found'}
+            status=404
 
         response = jsonConfig(data, status)
         return response
