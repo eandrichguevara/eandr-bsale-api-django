@@ -15,10 +15,12 @@ class CategoryView(View):
 
         if len(categories) > 0:
             data = {'SUCCESS': True, 'CATEGORIES': categories}
+            status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Categories not found'}
+            status=400
             
-        response = jsonConfig(data)
+        response = jsonConfig(data, status)
         return response
     
 class ProductView(View):
@@ -27,23 +29,22 @@ class ProductView(View):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, category=0):
+    def get(self, request):
 
-        if (category):
-            products = list(Product.objects.filter(category=category).all().values())
-        else:
-            products = list(Product.objects.all().values())
+        products = list(Product.objects.values())
 
-        if len(products) > 0:
+        if len(products) < 0:
             data = {'SUCCESS': True, 'PRODUCTS': products}
+            status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
+            status=400
 
-        response = jsonConfig(data)
+        response = jsonConfig(data, status)
         return response
 
-def jsonConfig( data ):
-    response = JsonResponse(data)
+def jsonConfig( data, status ):
+    response = JsonResponse(data, status=status)
     response["Content-Type"]                     = "application/json"
     response["Access-Control-Allow-Headers"]     = "X-Requested-With, Content-Type, Authorization, Origin, Accept"
     response["Access-Control-Allow-Origin"]      = "*"
