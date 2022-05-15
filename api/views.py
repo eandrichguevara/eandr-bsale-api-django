@@ -33,7 +33,7 @@ class ProductView(View):
 
         products = list(Product.objects.values())
 
-        if len(products) < 0:
+        if len(products) > 0:
             data = {'SUCCESS': True, 'PRODUCTS': products}
             status=200
         else:
