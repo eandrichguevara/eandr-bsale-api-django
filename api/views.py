@@ -13,8 +13,17 @@ class CategoryView(View):
     def get(self, request):
         categories = list(Category.objects.values())
 
+        categoriesData = []
+
+        for category in categories:
+            categoryData = {
+                "id": category.id,
+                "name": category.name
+            }
+            categoriesData.append(categoryData)
+
         if len(categories) > 0:
-            data = {'SUCCESS': True, 'CATEGORIES': categories}
+            data = {'SUCCESS': True, 'CATEGORIES': categoriesData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Categories not found'}
@@ -33,8 +42,20 @@ class ProductView(View):
 
         products = list(Product.objects.values())
 
+        productsData = []
+
+        for product in products:
+            productData = {
+                "id": product.id,
+                "name": product.name,
+                "url_image": product.url_image,
+                "price": product.price,
+                "discount": product.discount,
+            }
+            productsData.append(productData)
+
         if len(products) > 0:
-            data = {'SUCCESS': True, 'PRODUCTS': products}
+            data = {'SUCCESS': True, 'PRODUCTS': productsData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
@@ -53,8 +74,20 @@ class ProductByCategoryView(View):
 
         products = list(Product.objects.filter(category_id=category).values())
 
+        productsData = []
+
+        for product in products:
+            productData = {
+                "id": product.id,
+                "name": product.name,
+                "url_image": product.url_image,
+                "price": product.price,
+                "discount": product.discount,
+            }
+            productsData.append(productData)
+
         if len(products) > 0:
-            data = {'SUCCESS': True, 'PRODUCTS': products}
+            data = {'SUCCESS': True, 'PRODUCTS': productData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
@@ -73,8 +106,20 @@ class ProductBySearchView(View):
 
         products = list(Product.objects.filter(name__icontains = search).values())
 
+        productsData = []
+
+        for product in products:
+            productData = {
+                "id": product.id,
+                "name": product.name,
+                "url_image": product.url_image,
+                "price": product.price,
+                "discount": product.discount,
+            }
+            productsData.append(productData)
+
         if len(products) > 0:
-            data = {'SUCCESS': True, 'PRODUCTS': products}
+            data = {'SUCCESS': True, 'PRODUCTS': productData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
