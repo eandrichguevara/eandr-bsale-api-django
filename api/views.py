@@ -46,11 +46,11 @@ class ProductView(View):
 
         for product in products:
             productData = {
-                "id": product.id,
-                "name": product.name,
-                "url_image": product.url_image,
-                "price": product.price,
-                "discount": product.discount
+                "id": product["id"],
+                "name": product["name"],
+                "url_image": product["url_image"],
+                "price": product["price"],
+                "discount": product["discount"],
             }
             productsData.append(productData)
 
@@ -78,11 +78,11 @@ class ProductByCategoryView(View):
 
         for product in products:
             productData = {
-                "id": product.id,
-                "name": product.name,
-                "url_image": product.url_image,
-                "price": product.price,
-                "discount": product.discount
+                "id": product["id"],
+                "name": product["name"],
+                "url_image": product["url_image"],
+                "price": product["price"],
+                "discount": product["discount"],
             }
             productsData.append(productData)
 
