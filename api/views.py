@@ -87,7 +87,7 @@ class ProductByCategoryView(View):
             productsData.append(productData)
 
         if len(products) > 0:
-            data = {'SUCCESS': True, 'PRODUCTS': productData}
+            data = {'SUCCESS': True, 'PRODUCTS': productsData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
@@ -119,7 +119,7 @@ class ProductBySearchView(View):
             productsData.append(productData)
 
         if len(products) > 0:
-            data = {'SUCCESS': True, 'PRODUCTS': productData}
+            data = {'SUCCESS': True, 'PRODUCTS': productsData}
             status=200
         else:
             data = {'SUCCESS': False, 'ERROR': 'Products not found'}
